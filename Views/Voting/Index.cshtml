@@ -1,0 +1,18 @@
+﻿@model eVotingSystemWebJS.Models.LoginPageModel
+@{ ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="text-align:center;" class="Login-body">
+    <h1>@Model.Campaign.CampaignName</h1>
+</div>
+<form style="text-align:center;" method="post" asp-controller="Voting" asp-action="Vote">
+    @foreach (var voteOption in Model.CampaignVotes)
+    {
+        <input id="@voteOption.VoteNumber" type="radio" name="VoteOptions" value="@voteOption.VoteNumber" />
+        <label for="@voteOption.VoteDescription">@voteOption.VoteDescription</label>
+        <br />
+    }
+    <br />
+    <input type="submit" class="btn btn-primary" value="Submit" />
+</form>

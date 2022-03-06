@@ -1,0 +1,26 @@
+﻿@model eVotingSystemWebJS.Models.User
+@{ ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("LoginUser", "Home", FormMethod.Post))
+{
+
+    <div style="text-align:center;" class="Login-body">
+        <h2>Please enter the voting login details you have been provided</h2>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName)
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password)
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+
+            <input type="submit" name="submit" class="btn btn-primary" value="Login" />
+        </div>
+    </div>
+}
