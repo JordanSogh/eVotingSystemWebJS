@@ -76,6 +76,10 @@ namespace eVotingSystemWebJS.Models
                 };
                 votingDBContext.Votes.Add(Vote);
                 votingDBContext.SaveChanges();
+
+                var user = votingDBContext.Users.Where(u => u.UserName == "userVoter").First();
+                user.Voted = true;
+                votingDBContext.SaveChanges();
             }
             return true;
         }
@@ -139,7 +143,7 @@ namespace eVotingSystemWebJS.Models
 
             modelBuilder.Entity<Vote>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Ballot);
 
                 entity.ToTable("Vote");
 
@@ -155,6 +159,6 @@ namespace eVotingSystemWebJS.Models
             OnModelCreatingPartial(modelBuilder);
         }
 
-        private partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

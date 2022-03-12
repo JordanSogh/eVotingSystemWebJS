@@ -2,10 +2,17 @@
 @{ ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br />
+<br />
+<h2>Logged in as: @Html.LabelFor(model => model)</h2>
+<br />
 <div style="text-align:center;" class="Login-body">
     <h1>@Model.Campaign.CampaignName</h1>
+    <br />
+    <h2>Please select a vote option</h2>
 </div>
+<br />
+<br />
 <form style="text-align:center;" method="post" asp-controller="Voting" asp-action="Vote">
     @foreach (var voteOption in Model.CampaignVotes)
     {
@@ -13,6 +20,7 @@
         <label for="@voteOption.VoteDescription">@voteOption.VoteDescription</label>
         <br />
     }
+    <br />
     <br />
     <input type="submit" class="btn btn-primary" value="Submit" />
 </form>

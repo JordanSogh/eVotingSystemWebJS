@@ -11,6 +11,8 @@ namespace eVotingSystemWebJS.Controllers
         {
             VotingDBContext votingDB = new VotingDBContext();
             LoginPageModel loginPageModel = new LoginPageModel();
+            //Gets the Current Campaign
+
             loginPageModel.Campaign = votingDB.GetCampaign();
 
             if (loginPageModel.Campaign != null)
@@ -24,16 +26,23 @@ namespace eVotingSystemWebJS.Controllers
                 return View("NoCampaign");
             }
         }
+
         //POST
         [HttpPost]
         public IActionResult Vote(int VoteOptions)
         {
             VotingDBContext votingDB = new VotingDBContext();
             LoginPageModel loginPageModel = new LoginPageModel();
+            //Gets the Current Campaign
             loginPageModel.Campaign = votingDB.GetCampaign();
+            //Gets the Current Campaign Votes
             loginPageModel.CampaignVotes = votingDB.GetCampaignVotes(loginPageModel.Campaign);
 
+            //Retrieves the Vote option selected by the User
             var optionSelected2 = loginPageModel.CampaignVotes.Find(p => p.VoteNumber == VoteOptions);
+
+            //Casts Vote of options selected by the User
+            votingDB.CastVote(loginPageModel.Campaign,optionSelected2.VoteDescription,(int)optionSelected2.VoteNumber);
             return View("Voted");
         }
 

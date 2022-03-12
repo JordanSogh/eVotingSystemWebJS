@@ -34,6 +34,10 @@ namespace eVotingSystemWebJS.Controllers
 
                 if (userRetrieved != null)
                 {
+                    if (userRetrieved.Voted == true)
+                    {
+                        return View("AlreadyVoted");
+                    }
                     return RedirectToAction("Index", "Voting");
                 }
                 else
@@ -46,6 +50,12 @@ namespace eVotingSystemWebJS.Controllers
             {
                 return View("Login");
             }
+        }
+
+        [HttpPost]
+        public IActionResult Back()
+        {
+           return View("Login");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
