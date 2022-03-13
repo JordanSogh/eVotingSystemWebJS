@@ -6,18 +6,22 @@ namespace eVotingSystemWebJS.Controllers
 {
     public class VotingController : Controller
     {
+        private readonly VotingDBContext _votingDB;
+        public VotingController(VotingDBContext votingDB)
+        {
+            _votingDB = votingDB;
+        }
         //GET
         public IActionResult Index()
         {
-            VotingDBContext votingDB = new VotingDBContext();
             LoginPageModel loginPageModel = new LoginPageModel();
             //Gets the Current Campaign
 
-            loginPageModel.Campaign = votingDB.GetCampaign();
+            loginPageModel.Campaign = _votingDB.GetCampaign();
 
             if (loginPageModel.Campaign != null)
             {
-                loginPageModel.CampaignVotes = votingDB.GetCampaignVotes(loginPageModel.Campaign);
+                loginPageModel.CampaignVotes = _votingDB.GetCampaignVotes(loginPageModel.Campaign);
 
                 return View("Index", loginPageModel);
             }
@@ -31,18 +35,17 @@ namespace eVotingSystemWebJS.Controllers
         [HttpPost]
         public IActionResult Vote(int VoteOptions)
         {
-            VotingDBContext votingDB = new VotingDBContext();
             LoginPageModel loginPageModel = new LoginPageModel();
             //Gets the Current Campaign
-            loginPageModel.Campaign = votingDB.GetCampaign();
+            loginPageModel.Campaign = _votingDB.GetCampaign();
             //Gets the Current Campaign Votes
-            loginPageModel.CampaignVotes = votingDB.GetCampaignVotes(loginPageModel.Campaign);
+            loginPageModel.CampaignVotes = _votingDB.GetCampaignVotes(loginPageModel.Campaign);
 
             //Retrieves the Vote option selected by the User
             var optionSelected2 = loginPageModel.CampaignVotes.Find(p => p.VoteNumber == VoteOptions);
 
             //Casts Vote of options selected by the User
-            votingDB.CastVote(loginPageModel.Campaign,optionSelected2.VoteDescription,(int)optionSelected2.VoteNumber);
+            _votingDB.CastVote(loginPageModel.Campaign,optionSelected2.VoteDescription,(int)optionSelected2.VoteNumber);
             return View("Voted");
         }
 

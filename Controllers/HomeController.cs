@@ -8,10 +8,11 @@ namespace eVotingSystemWebJS.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly VotingDBContext _votingDB;
+        public HomeController(ILogger<HomeController> logger, VotingDBContext votingDB)
         {
             _logger = logger;
+            _votingDB = votingDB;
         }
 
         public IActionResult Index()
@@ -29,8 +30,7 @@ namespace eVotingSystemWebJS.Controllers
         {
             if (ModelState.IsValid)
             {
-                VotingDBContext votingDB = new VotingDBContext();
-                User userRetrieved = votingDB.ValidateLogin(user);
+                User userRetrieved = _votingDB.ValidateLogin(user);
 
                 if (userRetrieved != null)
                 {
