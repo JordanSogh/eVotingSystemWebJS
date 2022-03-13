@@ -7,16 +7,18 @@ namespace eVotingSystemWebJS.Controllers
     public class VotingController : Controller
     {
         private readonly VotingDBContext _votingDB;
+
         public VotingController(VotingDBContext votingDB)
         {
             _votingDB = votingDB;
         }
+
         //GET
         public IActionResult Index()
         {
             LoginPageModel loginPageModel = new LoginPageModel();
-            //Gets the Current Campaign
 
+            //Gets the Current Campaign
             loginPageModel.Campaign = _votingDB.GetCampaign();
 
             if (loginPageModel.Campaign != null)
@@ -45,7 +47,7 @@ namespace eVotingSystemWebJS.Controllers
             var optionSelected2 = loginPageModel.CampaignVotes.Find(p => p.VoteNumber == VoteOptions);
 
             //Casts Vote of options selected by the User
-            _votingDB.CastVote(loginPageModel.Campaign,optionSelected2.VoteDescription,(int)optionSelected2.VoteNumber);
+            _votingDB.CastVote(loginPageModel.Campaign, optionSelected2.VoteDescription, (int)optionSelected2.VoteNumber);
             return View("Voted");
         }
 

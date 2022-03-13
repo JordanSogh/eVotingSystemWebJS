@@ -6,7 +6,6 @@ namespace eVotingSystemWebJS.Models
     {
         public Campaign Campaign { get; set; }
         public List<CampaignVote> CampaignVotes { get; set; }
-
         public string SelectedAnswer { get; set; }
     }
 }

@@ -36,7 +36,6 @@ namespace eVotingSystemWebJS.Models
 
             return userRetrieved;
         }
-
         public Campaign GetCampaign()
         {
             Campaign campaignRetrieved = null;
@@ -50,7 +49,6 @@ namespace eVotingSystemWebJS.Models
 
             return campaignRetrieved;
         }
-
         public List<CampaignVote> GetCampaignVotes(Campaign campaign)
         {
             List<CampaignVote> voteOptionslist = null;
@@ -63,7 +61,6 @@ namespace eVotingSystemWebJS.Models
             }
             return voteOptionslist;
         }
-
         public bool CastVote(Campaign campaign, string ballotDescription, int ballotNumber)
         {
             using (VotingDBContext votingDBContext = new VotingDBContext())
@@ -83,7 +80,6 @@ namespace eVotingSystemWebJS.Models
             }
             return true;
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

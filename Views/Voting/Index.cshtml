@@ -4,7 +4,6 @@
 }
 <br />
 <br />
-<h2>Logged in as: @Html.LabelFor(model => model)</h2>
 <br />
 <div style="text-align:center;" class="Login-body">
     <h1>@Model.Campaign.CampaignName</h1>
@@ -13,7 +12,7 @@
 </div>
 <br />
 <br />
-<form style="text-align:center;" method="post" asp-controller="Voting" asp-action="Vote">
+<form style="text-align: center;" method="post" asp-controller="Voting" asp-action="Vote">
     @foreach (var voteOption in Model.CampaignVotes)
     {
         <input id="@voteOption.VoteNumber" type="radio" name="VoteOptions" value="@voteOption.VoteNumber" />
