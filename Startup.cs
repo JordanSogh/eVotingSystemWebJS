@@ -1,11 +1,15 @@
+
+using eVotingSystemWebJS.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,11 +27,12 @@ namespace eVotingSystemWebJS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<VotingDBContext>(options => options.UseSqlite(@"Data source = " + Directory.GetCurrentDirectory().ToString() + "\\VotingDB.db;"));
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, VotingDBContext votingDBContext)
         {
             if (env.IsDevelopment())
             {
@@ -43,7 +48,7 @@ namespace eVotingSystemWebJS
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            votingDBContext.Database.EnsureCreated();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
