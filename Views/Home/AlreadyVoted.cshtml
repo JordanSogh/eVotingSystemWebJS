@@ -1,10 +1,9 @@
-﻿@model eVotingSystemWebJS.Models.User
-@{ ViewData["Title"] = "AlreadyVoted";
+﻿@{ ViewData["Title"] = "AlreadyVoted";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div style="text-align:center;" class="Login-body">
 
-    <h1 class="display-4">@Html.LabelFor(model => model.UserName) has already voted</h1>
+    <h1 class="display-4">This User has already voted</h1>
     <form asp-controller="Home" asp-action="Back" method="Post">
         <button class="btn btn-primary" type="submit">Back</button>
     </form>

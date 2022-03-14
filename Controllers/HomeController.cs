@@ -9,7 +9,7 @@ namespace eVotingSystemWebJS.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly VotingDBContext _votingDB;
-
+        // Inject VotingDBContext and Logger
         public HomeController(ILogger<HomeController> logger, VotingDBContext votingDB)
         {
             _logger = logger;

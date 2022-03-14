@@ -7,7 +7,7 @@ namespace eVotingSystemWebJS.Controllers
     public class VotingController : Controller
     {
         private readonly VotingDBContext _votingDB;
-
+        // Inject VotingDBContext
         public VotingController(VotingDBContext votingDB)
         {
             _votingDB = votingDB;

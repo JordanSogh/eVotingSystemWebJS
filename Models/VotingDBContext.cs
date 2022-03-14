@@ -12,17 +12,19 @@ namespace eVotingSystemWebJS.Models
         public VotingDBContext()
         {
         }
-
+        // Gets the base options service that was created in the Startup class.
         public VotingDBContext(DbContextOptions<VotingDBContext> options)
             : base(options)
         {
         }
 
+       // DBSet is used for CRUD operations to map object to database tables
         public virtual DbSet<Campaign> Campaigns { get; set; }
         public virtual DbSet<CampaignVote> CampaignVotes { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vote> Votes { get; set; }
 
+        // Validated user credentials and returned the retrieved user or null.
         public User ValidateLogin(User user)
         {
             User userRetrieved = null;
@@ -36,6 +38,7 @@ namespace eVotingSystemWebJS.Models
 
             return userRetrieved;
         }
+        // Gets the Current Campaign
         public Campaign GetCampaign()
         {
             Campaign campaignRetrieved = null;
@@ -49,6 +52,7 @@ namespace eVotingSystemWebJS.Models
 
             return campaignRetrieved;
         }
+        // Gets the Current Campaign Votes options
         public List<CampaignVote> GetCampaignVotes(Campaign campaign)
         {
             List<CampaignVote> voteOptionslist = null;
@@ -61,6 +65,7 @@ namespace eVotingSystemWebJS.Models
             }
             return voteOptionslist;
         }
+        // Casts a vote from the vote option selected by the user
         public bool CastVote(Campaign campaign, string ballotDescription, int ballotNumber)
         {
             using (VotingDBContext votingDBContext = new VotingDBContext())
